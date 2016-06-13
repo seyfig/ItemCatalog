@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "leftmenu.html" %}
+<div class="content">
+    <div class="row">
+        <div class="item">
+            <form id="item-form" action="#" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" maxlength="80" class="form-control" name="title" value="{{item.title}}">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" maxlength="250" rows="3" name="description">{{item.description}}</textarea>
+                    
+                    <label for="category_name">Category</label>
+                    <select class="form-control" name="category_name">
+                        {%for cat in categories%}
+                            <option class="form-control" id="{{cat.id}}"
+                                {% if category and cat.name == category.name%}
+                                selected
+                                {%endif%}
+                                    >
+                                {{cat.name}}
+                            </option>
+                        {%endfor%}
+                    </select>
+                    <div class="form-element">
+                        {%if item.photo%}
+                        <img src="{{url_for('photoItem',item_title = item.title)}}" class="item_image">
+                        {%else%}
+                        <img src="/static/pictures/noimage.jpg" class="item_image">
+                        {%endif%}
+                    </div>
+                    <div class="form-element">
+                        <label for"photo">Change Photo</label>
+                        <input type="file" name="photo">
+                    </div> 
+                    <div class="form-element">
+                        <button type="submit" class="btn btn-success" id="submit" type="submit">
+					   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
+					   <a href = '{{url_for('showCategory', category_name = category.name)}}' class="btn btn-danger">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+					   </a>
+                    </div>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

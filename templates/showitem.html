@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "leftmenu.html" %}
+<div class="content">
+    <div class="row">
+        <div class="item col col-lg-12 col-md-12 col-xs-12">
+            <div class="row">
+                {%if item.photo%}
+                <img src="{{url_for('photoItem',item_title = item.title)}}" class="item_image">
+                {%else%}
+                <img src="/static/pictures/noimage.jpg" class="item_image">
+                {%endif%}
+            </div>
+            <div class="row item_title">
+                <p><strong>{{item.title}}</strong></p>
+            </div>
+            <div class="row item_description">
+                <p>{{item.description}}</p>
+            </div> 
+            {%if isCreator%}
+            <div class="row item_modify">
+                <a href="{{url_for('editItem', item_title = item.title)}}">Edit</a>
+                <a href="{{url_for('deleteItem', item_title = item.title)}}">Delete</a>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+</div>
+{% endblock %}

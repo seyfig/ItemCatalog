@@ -1,0 +1,73 @@
+<html>
+<head>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<!-- Bootstrap-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/main.js"></script>    
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Item Catalog</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-link"><a href="/">Home</a></li>
+                    <li class="nav-link"><a href="{{url_for('newItem')}}">New Item</a></li>
+                </ul>
+{%if 'username' not in session %}
+    
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-link">			<a href="{{url_for('showLogin')}}">Click Here to Login </a></li>
+    </ul>
+{%else%}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="username">
+            <span>{{session['email']}}</span>
+        </li>
+        <li class="nav-link"><a href="{{url_for('disconnect')}}">Logout</a></li>
+    </ul>
+{%endif%}
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="container body-content">
+			{% block content %}
+			{% endblock %}
+        <hr />
+    </div>
+<!-- ENHC : close all -->
+<div class = 'flash container'>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{category}}</strong> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>   
+<div class="container footer">
+    <footer>
+        <p>Item Catalog Application</p>
+    </footer> 
+</div>
+</body>
+</html>

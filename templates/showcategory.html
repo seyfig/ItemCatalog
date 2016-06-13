@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "leftmenu.html" %}
+<div class="content">
+    <div class="row">
+        {%for item in items%}
+            <a href="{{url_for('showItem', category_name = item.category.name, item_title = item.title)}}">
+                <div class="item col col-lg-3 col-md-4 col-xs-6">
+                    <div class="row">
+                        {%if item.photo%}
+                        <img src="{{url_for('photoItem',item_title = item.title)}}" class="item_image">
+                        {%else%}
+                        <img src="/static/pictures/noimage.jpg" class="item_image">
+                        {%endif%}
+                    </div>
+                    <div class="row item_title">
+                        <p><strong>{{item.title}}
+                            {%if not category%}
+                            <br>({{item.category.name}})
+                            {%endif%}
+                            </strong><br>{{item.description}}</p>
+                    </div>
+                </div>
+            </a>
+        {%endfor%}
+    </div>
+</div>
+{% endblock %}

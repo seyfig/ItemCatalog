@@ -1,0 +1,14 @@
+<div class="leftMenu">
+    <div class="list-group">
+        <div class="list-group-header">Categories</div>
+        {% for cat in categories %}
+        <a href="{{url_for('showCategory', category_name = cat.name)}}" class="list-group-item 
+        {% if category and cat.name == category.name%}
+        active
+        {%endif%}
+        ">
+        {{cat.name}}
+      </a>
+        {% endfor%}
+    </div>
+</div>
